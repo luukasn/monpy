@@ -42,10 +42,29 @@ class UI:
         """
         self.displayed_graphs = {}
 
-    def add_source(self, name, label):
+    def add_source(self, name, label, peak=True, current=True):
         self.displayed_graphs[name] = {"data": [], "label": label}
 
+        if peak:
+            self.displayed_graphs[name]["peak"] = 1
+        else:
+            self.displayed_graphs[name]["peak"] = False
+
+        if current:
+            self.displayed_graphs[name]["current"] = 1
+        else:
+            self.displayed_graphs[name]["current"] = False
+
     def append_data(self, name, data):
+        if (
+            self.displayed_graphs[name]["peak"]
+            and self.displayed_graphs[name]["peak"] < data
+        ):
+            self.displayed_graphs[name]["peak"] = data
+
+        if self.displayed_graphs[name]["current"]:
+            self.displayed_graphs[name]["current"] = data
+
         self.displayed_graphs[name]["data"].append(data)
 
     def draw(self):
@@ -65,6 +84,14 @@ class UI:
 
         for item in self.displayed_graphs:
             current_item = self.displayed_graphs[item]
-            self._plt.plot(current_item["data"], label=current_item["label"])
+            label = current_item["label"]
+
+            if peak := current_item["peak"]:
+                label += f", peak: {peak}"
+
+            if current := current_item["current"]:
+                label += f", current: {current}"
+
+            self._plt.plot(current_item["data"], label=label)
 
         self._plt.show()
