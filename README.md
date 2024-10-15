@@ -17,4 +17,11 @@ the recorded data.
 Support for other hardware and platforms is not planned as this was my [cs50p final project](https://cs50.harvard.edu/python/2022/project/).
 
 ## Screenshot
-not yet...
+Theme: pro
+![Monitoring with the pro theme](./asssets/preview_1.png) 
+
+Theme: matrix
+![Monitoring with the matrix theme](./asssets/preview_2.png) 
+
+Theme: retro
+![Monitoring with the retro theme](./asssets/preview_3.png) 
