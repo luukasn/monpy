@@ -2,6 +2,7 @@ from monpy.reader import Reader
 from monpy.ui import UI
 import argparse
 import time
+import sys
 
 
 def get_args():
@@ -38,6 +39,10 @@ def get_args():
     )
 
     parser.add_argument(
+        "--list-themes", help="List all the available TUI themes", action="store_true"
+    )
+
+    parser.add_argument(
         "-c", "--current", help="Display the current temperature", action="store_true"
     )
 
@@ -55,6 +60,11 @@ def main():
 
     if args.output and not args.output.endswith(".csv"):
         raise ValueError("Output file needs to be a csv file")
+
+    if args.list_themes:
+        valid_themes = UI().VALID_THEMES
+        print(", ".join(valid_themes))
+        sys.exit(0)
 
     reader = Reader(farenheit=args.farenheit, output_file=args.output)
     ui = UI(theme=args.theme)
