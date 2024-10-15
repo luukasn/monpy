@@ -7,7 +7,7 @@ import os
 
 class Reader:
     SUPPORTED_CPU_TEMP_DRIVERS = ["k10temp", "coretemp"]
-    MAX_BUFFER_SIZE = 100
+    MAX_BUFFER_SIZE = 50
 
     def __init__(self, farenheit=False, output_file=None) -> None:
         self.farenheit = farenheit
