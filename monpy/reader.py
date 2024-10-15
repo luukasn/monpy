@@ -41,35 +41,42 @@ class Reader:
             self._flush_buffers_to_file()
 
     def write_to_temp_buffer(self, key, value):
-        if key not in self.temp_buffer:
-            self.temp_buffer[key] = [value]
-        else:
-            self.temp_buffer[key] = [*self.temp_buffer[key], value]
 
-        self.temp_buffer = self.temp_buffer
-        self.temp_buffer_size += 1
+        # Make sure we write only to the buffer if output file
+        # is present, else self.temp_buffer would be None
+        # thereby causing errors
+        if self.output_file:
+            if key not in self.temp_buffer:
+                self.temp_buffer[key] = [value]
+            else:
+                self.temp_buffer[key] = [*self.temp_buffer[key], value]
+
+            self.temp_buffer = self.temp_buffer
+            self.temp_buffer_size += 1
 
     def _flush_buffers_to_file(self):
         if self.output_file != None:
-            file_exists = os.path.isfile(self.output_file)
-            with open(self.output_file, "a") as file:
-                keys = sorted(self.temp_buffer.keys())
-                writer = csv.DictWriter(file, keys)
+            try:
+                file_exists = os.path.isfile(self.output_file)
+                with open(self.output_file, "a") as file:
+                    keys = sorted(self.temp_buffer.keys())
+                    writer = csv.DictWriter(file, keys)
 
-                if not file_exists:
-                    writer.writeheader()
+                    if not file_exists:
+                        writer.writeheader()
 
-                list_sizes = int(self.temp_buffer_size / len(keys))
+                    list_sizes = int(self.temp_buffer_size / len(keys))
 
-                for i in range(list_sizes):
-                    row = {}
-                    for key in keys:
-                        row[key] = self.temp_buffer[key][i]
+                    for i in range(list_sizes):
+                        row = {}
+                        for key in keys:
+                            row[key] = self.temp_buffer[key][i]
 
-                    writer.writerow(row)
-                print("Wrote to a file")
-            self._temp_buffer = {}
-            self.temp_buffer_size = 0
+                        writer.writerow(row)
+                self._temp_buffer = {}
+                self.temp_buffer_size = 0
+            except Exception as error:
+                print("Could not write buffer contents to a file.", error)
 
     def _detect_hardware(self):
         """
