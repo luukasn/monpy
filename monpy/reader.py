@@ -141,11 +141,13 @@ class Reader:
             case _:
                 raise Exception("Unsupported GPU vendor")
 
+        temp = temp if not self.farenheit else (temp * 9 / 5) + 32
+
         # Write value to the temperature buffer.
         if buf_write:
             self.write_to_temp_buffer("gpu_temp", temp)
 
-        return temp if not self.farenheit else (temp * 9 / 5) + 32
+        return temp
 
     def get_cpu_temp(self, buf_write=True):
         temp = 0.0
