@@ -10,7 +10,7 @@ together with, for example a spreadsheet software so you can better visualize
 the recorded data.
 
 > [!IMPORTANT]
-> This project **only works with Linux**, AMD and Intel CPUs which are compatible
+> This project **only works with Linux**, AMD and Intel CPUs compatible
 > with the `k10temp` or `coretemp` kernel drivers and nvidia cards with the proprietary
 > drivers, as of right now.
 
@@ -42,4 +42,9 @@ dependencies.
 Start the project with:
 ```bash
 python project.py
+```
+
+See help for the command with:
+```bash
+python project.py --help
 ```
