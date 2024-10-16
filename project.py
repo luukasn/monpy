@@ -81,7 +81,7 @@ def main():
         sys.exit(0)
 
     if args.list_modules:
-        print("Available modules: gpu, cpu")
+        print("Available modules for your system:", ", ".join(reader.modules))
         sys.exit(0)
 
     ui = UI(theme=args.theme)
