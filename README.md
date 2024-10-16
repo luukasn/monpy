@@ -10,7 +10,7 @@ together with, for example a spreadsheet software so you can better visualize
 the recorded data.
 
 > [!IMPORTANT]
-> This project **only works with Linux**, AMD and Inter CPUs which are compatible
+> This project **only works with Linux**, AMD and Intel CPUs which are compatible
 > with the `k10temp` or `coretemp` kernel drivers and nvidia cards with the proprietary
 > drivers, as of right now.
 
@@ -36,7 +36,7 @@ Initialize the project with:
 ```bash
 ./install.sh
 ```
-This will create a python virual environment, if non exitend, and install all the
+This will create a python virual environment, if non existent, and install all the
 dependencies.
 
 Start the project with:
