@@ -52,6 +52,18 @@ def get_args():
         help="Display the peak temperature",
         action="store_true",
     )
+
+    parser.add_argument(
+        "-m",
+        "--modules",
+        help="Specify which modules to monitor, see all available modules with --list-modules",
+        default="gpu,cpu",
+    )
+
+    parser.add_argument(
+        "--list-modules", help="List all available modules", action="store_true"
+    )
+
     return parser.parse_args()
 
 
