@@ -56,7 +56,9 @@ def get_args():
     parser.add_argument(
         "-m",
         "--modules",
-        help="Specify which modules to monitor, see all available modules with --list-modules",
+        help="""Specify explicitly which hardware components to monitor.
+        This sould be a comma separated list of values,
+        see all available modules with --list-modules""",
         default="gpu,cpu",
     )
 
@@ -71,6 +73,7 @@ def main():
     args = get_args()
 
     reader = Reader(farenheit=args.farenheit, output_file=args.output)
+    ui = UI(theme=args.theme)
 
     if args.output and not args.output.endswith(".csv"):
         raise ValueError("Output file needs to be a csv file")
@@ -84,16 +87,25 @@ def main():
         print("Available modules for your system:", ", ".join(reader.modules))
         sys.exit(0)
 
-    ui = UI(theme=args.theme)
-    ui.add_source("cpu_temp", "CPU", peak=args.peak, current=args.current)
-    # ui.add_source("gpu_temp", "GPU", peak=args.peak, current=args.current)
+    modules = []
+
+    for module in args.modules.split(","):
+        if module.strip() in reader.modules:
+            modules.append(module)
+
+    for module in modules:
+        ui.add_source(module, peak=args.peak, current=args.current)
 
     while True:
         try:
-            cpu_temp = reader.get_cpu_temp()
-            # gpu_temp = reader.get_gpu_temp()
-            ui.append_data("cpu_temp", cpu_temp)
-            # ui.append_data("gpu_temp", gpu_temp)
+            for module in modules:
+                match module:
+                    case "cpu":
+                        cpu_temp = reader.get_cpu_temp()
+                        ui.append_data("cpu_temp", cpu_temp)
+                    case "gpu":
+                        gpu_temp = reader.get_gpu_temp()
+                        ui.append_data("gpu_temp", gpu_temp)
 
             ui.draw()
             time.sleep(abs(args.interval))

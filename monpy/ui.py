@@ -42,20 +42,29 @@ class UI:
         """
         self.displayed_graphs = {}
 
-    def add_source(self, name, label, peak=True, current=True):
-        self.displayed_graphs[name] = {"data": [], "label": label}
-
-        if peak:
-            self.displayed_graphs[name]["peak"] = 1
-        else:
-            self.displayed_graphs[name]["peak"] = False
-
-        if current:
-            self.displayed_graphs[name]["current"] = 1
-        else:
-            self.displayed_graphs[name]["current"] = False
+    def add_source(self, module_name, peak=True, current=True):
+        match module_name:
+            case "cpu":
+                self.displayed_graphs["cpu_temp"] = {
+                    "data": [],
+                    "label": module_name.upper(),
+                    "peak": 1 if peak else False,
+                    "current": 1 if current else False,
+                }
+            case "gpu":
+                self.displayed_graphs["gpu_temp"] = {
+                    "data": [],
+                    "label": module_name.upper(),
+                    "peak": 1 if peak else False,
+                    "current": 1 if current else False,
+                }
 
     def append_data(self, name, data):
+        match name:
+            case "cpu":
+                name = "cpu_temp"
+            case "gpu":
+                name = "gpu_temp"
         if (
             self.displayed_graphs[name]["peak"]
             and self.displayed_graphs[name]["peak"] < data
