@@ -70,6 +70,8 @@ def get_args():
 def main():
     args = get_args()
 
+    reader = Reader(farenheit=args.farenheit, output_file=args.output)
+
     if args.output and not args.output.endswith(".csv"):
         raise ValueError("Output file needs to be a csv file")
 
@@ -78,7 +80,10 @@ def main():
         print(", ".join(valid_themes))
         sys.exit(0)
 
-    reader = Reader(farenheit=args.farenheit, output_file=args.output)
+    if args.list_modules:
+        print("Available modules: gpu, cpu")
+        sys.exit(0)
+
     ui = UI(theme=args.theme)
     ui.add_source("cpu_temp", "CPU", peak=args.peak, current=args.current)
     # ui.add_source("gpu_temp", "GPU", peak=args.peak, current=args.current)
