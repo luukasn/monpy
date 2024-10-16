@@ -25,3 +25,21 @@ Theme: matrix
 
 Theme: retro
 ![Monitoring with the retro theme](./asssets/preview_3.png) 
+
+## Installation
+### requirements:
+- `python > 3.12`
+
+- `linux`
+
+Initialize the project with:
+```bash
+./install.sh
+```
+This will create a python virual environment, if non exitend, and install all the
+dependencies.
+
+Start the project with:
+```bash
+python project.py
+```
