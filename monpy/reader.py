@@ -85,6 +85,20 @@ class Reader:
         self._detect_cpu_temp_driver()
         self._detect_gpu_vendor()
 
+        self._set_available_modules()
+
+    def _set_available_modules(self):
+        """
+        Set available modules list
+        """
+        self.modules = []
+
+        if self._cpu_temp_driver:
+            self.modules.append("cpu")
+
+        if self._gpu_vendor:
+            self.modules.append("gpu")
+
     def _detect_cpu_temp_driver(self):
         """
         Detect the CPU temperature driver in use with
