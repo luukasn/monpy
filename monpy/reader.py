@@ -161,7 +161,8 @@ class Reader:
                 except KeyError as error:
                     raise error
             case "coretemp":
-                pass
+                sensors = psutil.sensors_temperatures(fahrenheit=self.farenheit)
+                temp = round(sensors["coretemp"][0].current, ndigits=1)
             case _:
                 raise Exception("Unsupported CPU temp driver")
 
