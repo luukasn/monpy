@@ -69,14 +69,14 @@ def main():
     reader = Reader(farenheit=args.farenheit, output_file=args.output)
     ui = UI(theme=args.theme)
     ui.add_source("cpu_temp", "CPU", peak=args.peak, current=args.current)
-    ui.add_source("gpu_temp", "GPU", peak=args.peak, current=args.current)
+    # ui.add_source("gpu_temp", "GPU", peak=args.peak, current=args.current)
 
     while True:
         try:
             cpu_temp = reader.get_cpu_temp()
-            gpu_temp = reader.get_gpu_temp()
+            # gpu_temp = reader.get_gpu_temp()
             ui.append_data("cpu_temp", cpu_temp)
-            ui.append_data("gpu_temp", gpu_temp)
+            # ui.append_data("gpu_temp", gpu_temp)
 
             ui.draw()
             time.sleep(abs(args.interval))

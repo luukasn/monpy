@@ -107,9 +107,10 @@ class Reader:
         """
 
         # Excepting that the user uses nvidia's proprietary drivers
-        if self._get_cmd_return_code("nvidia-smi") == 0:
-            self._gpu_vendor = "nvidia"
-        else:
+        try:
+            if self._get_cmd_return_code("nvidia-smi") == 0:
+                self._gpu_vendor = "nvidia"
+        except FileNotFoundError:
             self._gpu_vendor = None
 
     def _get_cmd_return_code(self, cmd: str) -> int:
