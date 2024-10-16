@@ -10,8 +10,8 @@ together with, for example a spreadsheet software so you can better visualize
 the recorded data.
 
 > [!IMPORTANT]
-> This project **only works with Linux**, AMD CPUs which are compatible
-> with the `k10temp` kernel driver and nvidia cards with the proprietary
+> This project **only works with Linux**, AMD and Inter CPUs which are compatible
+> with the `k10temp` or `coretemp` kernel drivers and nvidia cards with the proprietary
 > drivers, as of right now.
 
 Support for other hardware and platforms is not planned as this was my [cs50p final project](https://cs50.harvard.edu/python/2022/project/).
