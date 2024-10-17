@@ -26,6 +26,9 @@ Theme: matrix
 Theme: retro
 ![Monitoring with the retro theme](./asssets/preview_3.png) 
 
+Previewing data in libreoffice calc:
+![./asssets/libreoffice_preview.png](path) 
+
 ## Installation
 ### requirements:
 - `python > 3.12`
