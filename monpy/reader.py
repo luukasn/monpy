@@ -195,6 +195,12 @@ class Reader:
     def terminate_loop(self):
         self._read_loop_running = False
 
+    def cleanup(self):
+        """
+        Function to run when the program is about to exit.
+        """
+        self._flush_buffers_to_file()
+
 
 if __name__ == "__main__":
     reader = Reader(farenheit=False, output_file="statistics.csv")

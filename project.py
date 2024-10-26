@@ -112,6 +112,7 @@ def main():
         except KeyboardInterrupt:
             match input("\nDo you want to stop monitoring [y/n]: "):
                 case "y":
+                    reader.cleanup()
                     break
                 case _:
                     continue
